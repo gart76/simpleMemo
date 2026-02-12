@@ -1,0 +1,346 @@
+/* Global Styles */
+:root {
+  --font-sans: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  background-color: #F5F5F7;
+}
+
+body {
+  color: #1C1C1E;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: -0.01em;
+}
+
+/* Mesh Gradient Background */
+.mesh-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #ff9a9e;
+  background-image:
+    radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+  background-size: 200% 200%;
+  animation: gradient-move 15s ease infinite;
+  z-index: -1;
+  opacity: 0.15;
+  /* Subtle */
+  pointer-events: none;
+}
+
+@keyframes gradient-move {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Component Classes */
+.layout-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgba(255, 255, 255, 0.85);
+  /* Semi-transparent */
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.02), 0 20px 40px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Glassmorphism Header */
+.glass-header {
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  transition: all 0.3s ease;
+}
+
+/* Typography */
+.text-display {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #111;
+}
+
+.text-title {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  color: #111;
+  line-height: 1.4;
+}
+
+.text-body {
+  font-size: 15px;
+  font-weight: 400;
+  color: #444;
+  line-height: 1.55;
+}
+
+.text-caption {
+  font-size: 12px;
+  font-weight: 500;
+  color: #888;
+}
+
+/* Masonry Layout */
+.masonry-grid {
+  column-count: 2;
+  column-gap: 12px;
+}
+
+.note-card {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+  margin-bottom: 12px;
+  break-inside: avoid;
+  /* Prevent break in columns */
+  position: relative;
+  overflow: hidden;
+}
+
+.note-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  background-color: #fff;
+}
+
+.note-card:active {
+  transform: scale(0.98);
+}
+
+/* FAB */
+.fab {
+  position: absolute;
+  bottom: 32px;
+  right: 24px;
+  width: 60px;
+  height: 60px;
+  border-radius: 24px;
+  /* Squircle */
+  background: #111;
+  color: white;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  z-index: 100;
+  cursor: pointer;
+}
+
+.fab:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  border-radius: 20px;
+}
+
+.fab:active {
+  transform: scale(0.95);
+}
+
+/* Inputs & Editor */
+.input-reset {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+
+.editor-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 24px;
+  letter-spacing: -0.5px;
+}
+
+.editor-title::placeholder {
+  color: #ccc;
+}
+
+.editor-content {
+  font-size: 18px;
+  line-height: 1.7;
+  color: #333;
+  resize: none;
+  height: 100%;
+}
+
+.editor-content::placeholder {
+  color: #ddd;
+}
+
+/* Animations */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-enter {
+  animation: fade-in-up 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.btn-text {
+  background: rgba(0, 0, 0, 0.05);
+  color: #111;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 20px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-text:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.btn-text.danger {
+  background: rgba(255, 59, 48, 0.1);
+  color: #FF3B30;
+}
+
+.btn-text.danger:hover {
+  background: rgba(255, 59, 48, 0.15);
+}
+
+/* Themes */
+.bg-aurora .mesh-bg {
+  opacity: 0.15;
+  background-color: #ff9a9e;
+  background-image:
+    radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+}
+
+.bg-minimal .mesh-bg {
+  opacity: 0;
+  background: #F5F5F7;
+}
+
+/* Midnight Theme */
+.bg-midnight {
+  background-color: #000;
+  color: #fff;
+}
+
+.bg-midnight .mesh-bg {
+  opacity: 0.4;
+  background-image:
+    radial-gradient(at 0% 100%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, #0f172a 0, transparent 50%);
+}
+
+.bg-midnight .layout-container {
+  background-color: rgba(20, 20, 22, 0.8) !important;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.bg-midnight .glass-header {
+  background-color: rgba(20, 20, 22, 0.7);
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+}
+
+.bg-midnight .text-display,
+.bg-midnight .text-title,
+.bg-midnight .heading-2,
+.bg-midnight .editor-title {
+  color: #FFFFFF !important;
+}
+
+.bg-midnight .text-body,
+.bg-midnight .editor-content {
+  color: #A1A1A6 !important;
+}
+
+.bg-midnight .note-card,
+.bg-midnight .bg-white {
+  background-color: #1C1C1E;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.bg-midnight .input-reset,
+.bg-midnight textarea,
+.bg-midnight input {
+  color: white;
+}
+
+.bg-midnight .btn-text {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+/* Paper Theme */
+.bg-paper {
+  background-color: #fdfbf7;
+}
+
+.bg-paper .mesh-bg {
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Animation Utilities */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
