@@ -38,7 +38,7 @@ export const Layout: React.FC<LayoutProps> = ({
 
             <div className="layout-container transition-colors duration-300">
                 {/* Glassmorphism Header */}
-                <header className="glass-header w-full px-6 py-5 flex items-center justify-between z-10">
+                <header className="glass-header w-full px-6 flex items-center justify-between z-10">
                     <div className="flex items-center gap-3">
                         {showBack ? (
                             <button onClick={onBack} className="btn-text -ml-2" aria-label="Go Back">

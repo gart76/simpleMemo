@@ -79,6 +79,8 @@ body {
   position: sticky;
   top: 0;
   z-index: 50;
+  padding-top: calc(1.25rem + env(safe-area-inset-top));
+  padding-bottom: 1.25rem;
   transition: all 0.3s ease;
 }
 
