@@ -5,3 +5,5 @@ export interface Note {
     createdAt: number;
     updatedAt: number;
 }
+
+export type ViewState = 'home' | 'search' | 'settings' | 'editor';

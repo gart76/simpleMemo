@@ -24,6 +24,45 @@ allprojects {
     }
 }
 
+// Helper task to fix the issue in node_modules if it persists
+task fixProGuardIssue {
+    doLast {
+        def keyboardGradle = file('../node_modules/@capacitor/keyboard/android/build.gradle')
+        if (keyboardGradle.exists()) {
+            def content = keyboardGradle.text
+            if (content.contains("'proguard-android.txt'")) {
+                keyboardGradle.text = content.replace("'proguard-android.txt'", "'proguard-android-optimize.txt'")
+                println "Fixed proguard-android.txt in @capacitor/keyboard"
+            }
+        }
+    }
+}
+
+subprojects {
+    // This hook attempts to fix the issue during evaluation by overriding the property if possible,
+    // but the error often happens before this block is reached if it's a direct call in the script.
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            project.android.buildTypes.all { buildType ->
+                try {
+                    def files = buildType.getProguardFiles()
+                    def newFiles = files.collect {
+                        if (it instanceof String && it == 'proguard-android.txt') {
+                            return 'proguard-android-optimize.txt'
+                        } else if (it instanceof File && it.name == 'proguard-android.txt') {
+                            return project.android.getDefaultProguardFile('proguard-android-optimize.txt')
+                        }
+                        return it
+                    }
+                    buildType.setProguardFiles(newFiles)
+                } catch (Exception e) {
+                    // Ignore errors during replacement
+                }
+            }
+        }
+    }
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

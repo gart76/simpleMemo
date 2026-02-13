@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { Note } from '../types';
-import type { Theme } from '../hooks/useSettings';
 import { Layout } from './Layout';
+import { Trash2 } from 'lucide-react';
 
 interface NoteEditorProps {
     initialNote?: Note;
     onSave: (id: string, title: string, content: string) => void;
     onBack: () => void;
     onDelete: (id: string) => void;
-    currentTheme: Theme;
 }
 
 export const NoteEditor: React.FC<NoteEditorProps> = ({
@@ -16,7 +15,6 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({
     onSave,
     onBack,
     onDelete,
-    currentTheme
 }) => {
     const [title, setTitle] = useState(initialNote?.title || '');
     const [content, setContent] = useState(initialNote?.content || '');
@@ -54,33 +52,35 @@ export const NoteEditor: React.FC<NoteEditorProps> = ({
             title=""
             showBack
             onBack={handleBack}
-            currentTheme={currentTheme}
             headerRight={
                 initialNote && (
-                    <button onClick={handleDelete} className="btn-text danger z-20 relative">
-                        삭제
+                    <button
+                        onClick={handleDelete}
+                        className="p-2 -mr-2 text-gray-500 hover:text-red-400 hover:bg-white/5 rounded-full transition-colors"
+                    >
+                        <Trash2 size={20} />
                     </button>
                 )
             }
         >
-            <div className="flex flex-col h-full min-h-[calc(100vh-60px)]">
-                <div className="px-6 pt-6 pb-2">
+            <div className="flex flex-col h-full min-h-[calc(100vh-80px)]">
+                <div className="px-6 py-4 border-b border-white/10">
                     <input
                         id="note-title-input"
                         type="text"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         placeholder="제목"
-                        className="input-reset editor-title"
+                        className="w-full bg-transparent border-none outline-none text-[28px] font-bold text-white placeholder:text-gray-500 leading-tight"
                     />
                 </div>
-                <div className="flex-1 px-6 pb-8">
+                <div className="flex-1 px-6 py-6 pb-20">
                     <textarea
                         ref={contentRef}
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                         placeholder="내용을 입력하세요..."
-                        className="input-reset editor-content w-full h-full"
+                        className="w-full h-full bg-transparent border-none outline-none text-[18px] text-gray-200 placeholder:text-gray-600 leading-relaxed resize-none"
                     />
                 </div>
             </div>
